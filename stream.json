@@ -7,15 +7,6 @@
     "radios": [
         {
             "id": 1,
-            "name": "Rádio Cristã",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/radio-crista.webp",
-            "stream_url": "https://servidor40-3.brlogic.com:8004/live",
-            "description": "Adoração a Deus ",
-            "popular": false,
-            "language": "pt"
-        },
-        {
-            "id": 2,
             "name": "Grandeza",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/grandeza.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com/8318/stream",
@@ -24,7 +15,7 @@
             "language": "es"
         },
         {
-            "id": 3,
+            "id": 2,
             "name": "Jardín de Dios",
             "image": "https://cdn.jsdelivr.net/gh/NeoPuntoDev/radiocdn/img/jardin-de-dios.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com:8172/stream",
@@ -33,7 +24,7 @@
             "language": "es"
         },
         {
-            "id": 4,
+            "id": 3,
             "name": "La Nueva",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/la-nueva.webp",
             "stream_url": "https://server.radiogs.net:7008//;",
@@ -42,7 +33,7 @@
             "language": "es"
         },
         {
-            "id": 5,
+            "id": 4,
             "name": "Nueva Jerusalem",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/nueva-jerusalem.webp",
             "stream_url": "https://stream.zeno.fm/15eret36vhruv",
@@ -51,7 +42,7 @@
             "language": "es"
         },
         {
-            "id": 6,
+            "id": 5,
             "name": "Revelación",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/revelacion.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com/8260/stream",
@@ -60,7 +51,7 @@
             "language": "es"
         },
         {
-            "id": 7,
+            "id": 6,
             "name": "Christian Mix",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/christian-mix.webp",
             "stream_url": "http://199.180.72.2:10572/stream",
@@ -69,7 +60,7 @@
             "language": "en"
         },
         {
-            "id": 8,
+            "id": 7,
             "name": "Christian Hits",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/christian-hits.webp",
             "stream_url": "https://das-edge62-live365-dal03.cdnstream.com/a55870",
@@ -78,7 +69,7 @@
             "language": "en"
         },
         {
-            "id": 9,
+            "id": 8,
             "name": "LigthHouse",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/ligthhouse.webp",
             "stream_url": "https://lighthouseradio.network/proxy/mainchannel/stream/",
@@ -87,7 +78,7 @@
             "language": "en"
         },
         {
-            "id": 10,
+            "id": 9,
             "name": "Voz del Hogar",
             "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/voz-del-hogar.webp",
             "stream_url": "https://hd.streamingfullhd.net:7018/;",
@@ -96,7 +87,7 @@
             "language": "es"
         },
         {
-            "id": 11,
+            "id": 10,
             "name": "Dios de Pacto",
             "image": "https://i.postimg.cc/m2qzBWjn/1773205134713-2.jpg",
             "stream_url": "http://edmenstudio.net:8001/;",
