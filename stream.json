@@ -8,7 +8,7 @@
         {
             "id": 1,
             "name": "Rádio Cristã",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/1000166543.png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/radio-crista.webp",
             "stream_url": "https://servidor40-3.brlogic.com:8004/live",
             "description": "Adoração a Deus ",
             "popular": false,
@@ -17,7 +17,7 @@
         {
             "id": 2,
             "name": "Grandeza",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/1000140450.png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/grandeza.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com/8318/stream",
             "description": "Guatemala y México ",
             "popular": false,
@@ -26,7 +26,7 @@
         {
             "id": 3,
             "name": "Jardín de Dios",
-            "image": "https://cdn.jsdelivr.net/gh/NeoPuntoDev/radiocdn/file_00000000a648722fadb9e4b0b9e9c7a8.webp",
+            "image": "https://cdn.jsdelivr.net/gh/NeoPuntoDev/radiocdn/img/jardin-de-dios.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com:8172/stream",
             "description": "San Miguel Chicaj",
             "popular": false,
@@ -35,7 +35,7 @@
         {
             "id": 4,
             "name": "La Nueva",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/1000140445.png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/la-nueva.webp",
             "stream_url": "https://server.radiogs.net:7008//;",
             "description": "Alabanzas y Adoración",
             "popular": false,
@@ -44,7 +44,7 @@
         {
             "id": 5,
             "name": "Nueva Jerusalem",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/grok_image_1771391722459.jpg",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/nueva-jerusalem.webp",
             "stream_url": "https://stream.zeno.fm/15eret36vhruv",
             "description": "Guatemala",
             "popular": false,
@@ -53,7 +53,7 @@
         {
             "id": 6,
             "name": "Revelación",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/1000125417.png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/revelacion.webp",
             "stream_url": "https://cloudstream2032.conectarhosting.com/8260/stream",
             "description": "Alabanza y adoración",
             "popular": false,
@@ -62,7 +62,7 @@
         {
             "id": 7,
             "name": "Christian Mix",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/file_000000006c4c71f5ab61c2d7f06a2908%20(1).png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/christian-mix.webp",
             "stream_url": "http://199.180.72.2:10572/stream",
             "description": "Worship and praise",
             "popular": false,
@@ -71,7 +71,7 @@
         {
             "id": 8,
             "name": "Christian Hits",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/file_000000002e1471fd9f59bc3a24b78c31%20(1).png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/christian-hits.webp",
             "stream_url": "https://das-edge62-live365-dal03.cdnstream.com/a55870",
             "description": "Worship ",
             "popular": false,
@@ -80,7 +80,7 @@
         {
             "id": 9,
             "name": "LigthHouse",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/file_00000000ee00722f8d3930781cc22800%20(1).png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/ligthhouse.webp",
             "stream_url": "https://lighthouseradio.network/proxy/mainchannel/stream/",
             "description": "Praise and worship ",
             "popular": false,
@@ -89,7 +89,7 @@
         {
             "id": 10,
             "name": "Voz del Hogar",
-            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/file_00000000ba7871fd9f03b26885c4bc30.png",
+            "image": "https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/voz-del-hogar.webp",
             "stream_url": "https://hd.streamingfullhd.net:7018/;",
             "description": "Guatemala",
             "popular": false,

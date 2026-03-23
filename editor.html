@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Radios - Stream JSON</title>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --danger: #EF4444;
+            --danger-hover: #DC2626;
+            --bg: #F3F4F6;
+            --card: #FFFFFF;
+            --text: #1F2937;
+            --border: #D1D5DB;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="url"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-group input {
+            width: auto;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        .btn-danger:hover {
+            background-color: var(--danger-hover);
+        }
+        .radio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .radio-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: #FAFAFA;
+        }
+        .radio-info strong {
+            display: block;
+            font-size: 18px;
+        }
+        .radio-info small {
+            color: #6B7280;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .notice {
+            background-color: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        #json-output {
+            width: 100%;
+            height: 200px;
+            font-family: monospace;
+            white-space: pre;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: #f8f8f8;
+            overflow-y: auto;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎧 Editor de stream.json</h1>
+
+    <div class="notice">
+        <strong>¡Importante!</strong> Cuando agregues una nueva radio, asegúrate de que el nombre de la imagen esté en <strong>minúsculas, sin acentos y sin espacios (usa guiones)</strong>.
+        <br>Por ejemplo: Si la radio es "Radio Cristiana", la imagen debe llamarse <code>radio-cristiana.webp</code> y subirse a la carpeta <code>img/</code>.
+    </div>
+
+    <div class="card">
+        <h2>Cargar JSON Actual</h2>
+        <p>Pega aquí el contenido de tu <code>stream.json</code> actual para empezar a editarlo:</p>
+        <textarea id="json-input" rows="6" placeholder="{ ... }"></textarea>
+        <button onclick="loadJSON()" style="margin-top: 10px;">Cargar JSON</button>
+    </div>
+
+    <div id="editor-section" style="display: none;">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2>Lista de Radios</h2>
+                <button onclick="openModal()">+ Agregar Radio</button>
+            </div>
+            <div class="radio-list" id="radio-list">
+                <!-- Radio items will be injected here -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Generar y Copiar JSON</h2>
+            <p>Haz clic en el botón para generar el nuevo código y cópialo para reemplazarlo en tu archivo de GitHub.</p>
+            <textarea id="json-output" readonly></textarea>
+            <br>
+            <button onclick="copyJSON()" style="margin-top: 10px; width: 100%; padding: 15px; font-size: 16px;">📋 Copiar JSON Actualizado</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar/editar -->
+<div class="modal" id="radioModal">
+    <div class="modal-content">
+        <h2 id="modalTitle">Agregar Radio</h2>
+        <input type="hidden" id="edit-id">
+
+        <div class="form-group">
+            <label>ID (Automático si está vacío)</label>
+            <input type="number" id="input-id">
+        </div>
+
+        <div class="form-group">
+            <label>Nombre de la Emisora</label>
+            <input type="text" id="input-name" oninput="generateSlugHint()">
+        </div>
+
+        <div class="form-group">
+            <label>URL de la Imagen</label>
+            <small style="color: #6B7280; display: block; margin-bottom: 5px;">Sugerencia de ruta: <code id="slug-hint">https://cdn.jsdelivr.net/gh/TU-USUARIO/TU-REPO@main/img/nombre.webp</code></small>
+            <input type="text" id="input-image">
+        </div>
+
+        <div class="form-group">
+            <label>URL del Stream</label>
+            <input type="url" id="input-stream">
+        </div>
+
+        <div class="form-group">
+            <label>Descripción</label>
+            <input type="text" id="input-desc">
+        </div>
+
+        <div class="form-group">
+            <label>Idioma (ej. es, en, pt)</label>
+            <input type="text" id="input-lang">
+        </div>
+
+        <div class="form-group checkbox-group">
+            <input type="checkbox" id="input-popular">
+            <label for="input-popular" style="margin-bottom: 0;">¿Es Popular?</label>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <button onclick="closeModal()" style="background-color: #6B7280;">Cancelar</button>
+            <button onclick="saveRadio()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentData = null;
+
+    function slugify(text) {
+        return text.toString().toLowerCase()
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove accents
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
+    }
+
+    function generateSlugHint() {
+        const name = document.getElementById('input-name').value;
+        const slug = slugify(name);
+        if(slug) {
+            document.getElementById('slug-hint').innerText = `https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/${slug}.webp`;
+
+            // Auto fill image if empty
+            const imgInput = document.getElementById('input-image');
+            if(!imgInput.value || imgInput.value.includes('img/')) {
+                imgInput.value = `https://cdn.jsdelivr.net/gh/MXNeoPunto/radiocdn@main/img/${slug}.webp`;
+            }
+        }
+    }
+
+    function loadJSON() {
+        try {
+            const input = document.getElementById('json-input').value;
+            currentData = JSON.parse(input);
+            if (!currentData.radios) {
+                currentData.radios = [];
+            }
+            document.getElementById('editor-section').style.display = 'block';
+            renderRadios();
+            updateOutput();
+        } catch (e) {
+            alert("Error: El JSON proporcionado no es válido. Asegúrate de copiarlo correctamente.");
+        }
+    }
+
+    function renderRadios() {
+        const list = document.getElementById('radio-list');
+        list.innerHTML = '';
+
+        currentData.radios.forEach((radio, index) => {
+            const item = document.createElement('div');
+            item.className = 'radio-item';
+            item.innerHTML = `
+                <div class="radio-info">
+                    <strong>${radio.name}</strong>
+                    <small>ID: ${radio.id} | Idioma: ${radio.language}</small>
+                </div>
+                <div class="actions">
+                    <button onclick="editRadio(${index})">✏️ Editar</button>
+                    <button class="btn-danger" onclick="deleteRadio(${index})">🗑️ Borrar</button>
+                </div>
+            `;
+            list.appendChild(item);
+        });
+    }
+
+    function openModal(index = -1) {
+        const modal = document.getElementById('radioModal');
+        const title = document.getElementById('modalTitle');
+
+        if (index > -1) {
+            title.innerText = "Editar Radio";
+            const radio = currentData.radios[index];
+            document.getElementById('edit-id').value = index;
+            document.getElementById('input-id').value = radio.id;
+            document.getElementById('input-name').value = radio.name;
+            document.getElementById('input-image').value = radio.image;
+            document.getElementById('input-stream').value = radio.stream_url;
+            document.getElementById('input-desc').value = radio.description || '';
+            document.getElementById('input-lang').value = radio.language || 'es';
+            document.getElementById('input-popular').checked = radio.popular || false;
+        } else {
+            title.innerText = "Agregar Radio";
+            document.getElementById('edit-id').value = '-1';
+
+            // Generar nuevo ID (máximo actual + 1)
+            let maxId = 0;
+            if(currentData.radios.length > 0) {
+                maxId = Math.max(...currentData.radios.map(r => r.id));
+            }
+            document.getElementById('input-id').value = maxId + 1;
+
+            document.getElementById('input-name').value = '';
+            document.getElementById('input-image').value = '';
+            document.getElementById('input-stream').value = '';
+            document.getElementById('input-desc').value = '';
+            document.getElementById('input-lang').value = 'es';
+            document.getElementById('input-popular').checked = false;
+        }
+
+        modal.classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('radioModal').classList.remove('active');
+    }
+
+    function saveRadio() {
+        const index = parseInt(document.getElementById('edit-id').value);
+
+        const radio = {
+            id: parseInt(document.getElementById('input-id').value) || Date.now(),
+            name: document.getElementById('input-name').value,
+            image: document.getElementById('input-image').value,
+            stream_url: document.getElementById('input-stream').value,
+            description: document.getElementById('input-desc').value,
+            popular: document.getElementById('input-popular').checked,
+            language: document.getElementById('input-lang').value
+        };
+
+        if (index > -1) {
+            currentData.radios[index] = radio;
+        } else {
+            currentData.radios.push(radio);
+        }
+
+        closeModal();
+        renderRadios();
+        updateOutput();
+    }
+
+    function deleteRadio(index) {
+        if(confirm("¿Estás seguro de que deseas eliminar esta emisora?")) {
+            currentData.radios.splice(index, 1);
+            renderRadios();
+            updateOutput();
+        }
+    }
+
+    function updateOutput() {
+        const output = document.getElementById('json-output');
+        output.value = JSON.stringify(currentData, null, 4);
+    }
+
+    function copyJSON() {
+        const output = document.getElementById('json-output');
+        output.select();
+        document.execCommand('copy');
+        alert("¡JSON Copiado al portapapeles! Ahora puedes pegarlo en tu archivo de GitHub.");
+    }
+</script>
+</body>
+</html>
