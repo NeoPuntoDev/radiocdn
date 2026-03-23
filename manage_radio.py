@@ -61,7 +61,7 @@ def add_radio(args):
         "stream_url": args.url,
         "description": args.desc if args.desc else "Alabanza y adoración",
         "popular": False,
-        "language": "es"
+        "language": args.lang
     }
 
     if existing:
@@ -115,6 +115,7 @@ def main():
     add_parser.add_argument("--url", required=True, help="Stream URL.")
     add_parser.add_argument("--image", required=True, help="Path to the original image file in the root directory.")
     add_parser.add_argument("--desc", help="Description of the radio (optional).")
+    add_parser.add_argument("--lang", help="Language of the radio (es, en). Default is es.", default="es")
 
     delete_parser = subparsers.add_parser("delete", help="Delete a radio station.")
     delete_group = delete_parser.add_mutually_exclusive_group(required=True)

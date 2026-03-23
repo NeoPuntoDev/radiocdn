@@ -18,20 +18,24 @@ pip install -r requirements.txt
 ### 1. Añadir una nueva emisora
 
 Cuando el usuario suba una imagen a la raíz del repositorio y te diga: *"toma la imagen, ponle este nombre, enlace y descríbela (opcional) y ponla en la emisora"*.
+**IMPORTANTE:** Siempre corrige la ortografía si el usuario comete errores al escribir el título (nombre) de la radio o su descripción.
 
 **Tu tarea:**
 1. Identifica el nombre de la imagen recién subida en la raíz (ej. `mifoto.jpg`).
-2. Identifica el nombre de la radio y la URL del streaming que te proporcionó el usuario en su mensaje.
+2. Identifica el nombre de la radio, la URL del streaming y el idioma que te proporcionó el usuario en su mensaje. Corrige la ortografía del nombre y la descripción si es necesario.
+   * Si el usuario dice "español", el idioma es `es`.
+   * Si el usuario dice "inglés", el idioma es `en`.
+   * Pasa el idioma usando el argumento `--lang`.
 3. Ejecuta el script `manage_radio.py` pasando estos datos como argumentos.
 
-**Comando de ejemplo:**
+**Comando de ejemplo (con idioma):**
 ```bash
-python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-stream.com" --image "mifoto.jpg"
+python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-stream.com" --image "mifoto.jpg" --lang "es"
 ```
 
 **Con descripción (opcional):**
 ```bash
-python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-stream.com" --image "mifoto.jpg" --desc "Emisora con la mejor música cristiana."
+python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-stream.com" --image "mifoto.jpg" --desc "Emisora con la mejor música cristiana." --lang "en"
 ```
 *Nota: Si el usuario no proporciona una descripción, el script automáticamente colocará "Alabanza y adoración". El script también se encargará de convertir la imagen a WebP, guardarla en `img/` con formato slug, generar la URL de CDN correcta y reordenar los IDs.*
 
