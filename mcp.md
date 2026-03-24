@@ -6,7 +6,17 @@ Este repositorio es una base de datos/directorio para una aplicación de radio c
 
 ## Cómo agregar o eliminar emisoras de radio
 
-**IMPORTANTE:** Nunca edites `stream.json` ni proceses las imágenes a mano. **Siempre debes usar el script `manage_radio.py`** que ya está preparado en la raíz del repositorio. Este script se encarga de todo el flujo (optimización de imagen a WebP, formateo de nombres a slug, borrado del archivo original, subida con URL jsdelivr, y reordenamiento de IDs de las radios 1, 2, 3...).
+**IMPORTANTE:** Nunca edites `stream.json` ni proceses las imágenes a mano. **Siempre debes usar el script `manage_radio.py`** que ya está preparado en la raíz del repositorio. Este script se encarga de todo el flujo (optimización de imagen a WebP, formateo de nombres a slug, borrado del archivo original, subida con URL jsdelivr, y reordenamiento de IDs de las radios).
+
+### Sistema de Identificadores (IDs) Automático
+El sistema de IDs de las emisoras en `stream.json` **siempre es secuencial y automático**. No necesitas asignar IDs manualmente al agregar, ni reordenarlos a mano al eliminar. El script `manage_radio.py` hace esto usando la función `reorder_ids()`.
+
+**Ejemplo de cómo funciona:**
+1. Tienes las emisoras con los IDs: `1, 2, 3, 4`.
+2. Si el usuario te pide **eliminar** la ID `3`: Las que quedan (`1, 2, 4`) se reordenan automáticamente a `1, 2, 3` (la antigua 4 baja a 3).
+3. Si el usuario luego te pide **agregar** una nueva emisora a las actuales `1, 2, 3`: El sistema asignará automáticamente a la nueva emisora el ID `4`.
+
+*Siempre que uses el script, el reordenamiento se aplicará asegurando que no haya huecos en la numeración de los IDs.*
 
 ### Requisitos previos
 
@@ -37,7 +47,7 @@ python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-st
 ```bash
 python3 manage_radio.py add --name "Nombre de la Radio" --url "http://url-del-stream.com" --image "mifoto.jpg" --desc "Emisora con la mejor música cristiana." --lang "en"
 ```
-*Nota: Si el usuario no proporciona una descripción, el script automáticamente colocará "Alabanza y adoración". El script también se encargará de convertir la imagen a WebP, guardarla en `img/` con formato slug, generar la URL de CDN correcta y reordenar los IDs.*
+*Nota: Si el usuario no proporciona una descripción, el script automáticamente colocará "Alabanza y adoración". El script también se encargará de convertir la imagen a WebP, guardarla en `img/` con formato slug, generar la URL de CDN correcta y reordenar los IDs (ver "Sistema de Identificadores").*
 
 ### 2. Borrar una emisora
 
@@ -58,7 +68,7 @@ Por Nombre:
 python3 manage_radio.py delete --name "Nombre de la Radio"
 ```
 
-*Nota: El script se encargará de buscar en `stream.json`, eliminar la entrada, borrar la imagen `.webp` asociada en la carpeta `img/` y reordenar los IDs restantes (1, 2, 3...) para que queden de forma secuencial.*
+*Nota: El script se encargará de buscar en `stream.json`, eliminar la entrada, borrar la imagen `.webp` asociada en la carpeta `img/` y reordenar los IDs restantes (1, 2, 3...) para que queden de forma secuencial (ver "Sistema de Identificadores").*
 
 ### Pasos finales obligatorios
 1. **Verificar:** Una vez que ejecutes el comando exitosamente con `run_in_bash_session`, usa `cat stream.json` o revisa el archivo JSON para asegurarte de que se ha modificado correctamente y usa `ls -la img/` para asegurar que las imágenes se han procesado.

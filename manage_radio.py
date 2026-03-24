@@ -23,6 +23,10 @@ def save_data(data):
         f.write("\n")
 
 def reorder_ids(radios):
+    # IMPORTANT: DO NOT MODIFY THIS FUNCTION LOGIC
+    # It recalculates IDs sequentially starting from 1 for all items in the array.
+    # This automatically fills any gaps when an item is deleted (e.g. 1,2,4 becomes 1,2,3).
+    # It also ensures new items get the next sequential number automatically (e.g. 1,2,3 becomes 1,2,3,4).
     for index, radio in enumerate(radios):
         radio["id"] = index + 1
     return radios
@@ -55,7 +59,7 @@ def add_radio(args):
     existing = next((r for r in radios if r["name"].lower() == args.name.lower()), None)
 
     new_radio = {
-        "id": 0, # Will be reordered
+        "id": 0, # Will be automatically calculated by reorder_ids() below
         "name": args.name,
         "image": cdn_url,
         "stream_url": args.url,
